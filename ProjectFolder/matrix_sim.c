@@ -119,10 +119,10 @@ int main(int argc, char** argv)
 	gethostname(me, 254);
 	printf("Host: %s\n", me);
 	/// checking for correct arguments
-	if(argc > 2)
+	if(argc > 3)
 	{
 		/// setup output file and test data
-		FILE* outf1 = fopen("test_regular.txt", "w+");
+		FILE* outf1 = fopen(argv[3], "w+");
 		//FILE* outf2 = fopen("test_simd.txt", "w+");
 		TestData data = {0};
 		data.startLen = atol(argv[1]);
@@ -144,7 +144,7 @@ int main(int argc, char** argv)
 	else
 	{	
 		/// usage of arguments
-		printf("USAGE:\t[START LEN] [# OF TRIALS]\n");
+		printf("USAGE:\t[START LEN]  [# OF TRIALS]  [OUTPUT FILE NAME]\n");
 		return 0;
 	}
 
