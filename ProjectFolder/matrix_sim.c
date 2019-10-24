@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <sys/times.h>
-
+#include <unistd.h>
 
 #include "mmult.c"
 
@@ -61,9 +61,12 @@ void TestLinear(TestData* data, FILE* f)
 		A = gen_matrix(templen, templen);
 		C = gen_matrix(templen, templen);
 
+		
 		clock_gettime(CLOCK_REALTIME, &(data->start));
 		mmult(C, M, templen, templen, A, templen, templen);
 		clock_gettime(CLOCK_REALTIME, &(data->end));
+		
+			
 		data->timeTaken = deltaTime(&data->start, &data->end);
 		
 		///updating the current matrix size before printing
@@ -76,7 +79,6 @@ void TestLinear(TestData* data, FILE* f)
 	}
 	free(C);
 }
-
 
 ///////////////////////////////////////////////////
 /// Generate array of doubles using a file
@@ -113,11 +115,15 @@ double* gen_matrix_file(FILE* f, int* size)
 
 int main(int argc, char** argv)
 {
+	char me[255];
+	gethostname(me, 254);
+	printf("Host: %s\n", me);
 	/// checking for correct arguments
-	if(argc > 3)
+	if(argc > 2)
 	{
 		/// setup output file and test data
-		FILE* outf = fopen(argv[3], "w+");
+		FILE* outf1 = fopen("test_regular.txt", "w+");
+		//FILE* outf2 = fopen("test_simd.txt", "w+");
 		TestData data = {0};
 		data.startLen = atol(argv[1]);
 		data.numIte = atol(argv[2]);
@@ -125,20 +131,20 @@ int main(int argc, char** argv)
 		data.curLen = data.startLen;
 		
 		/// Start linear test
-		fprintf(outf, "\n\n[LINEAR TIME TEST]\n");
-		TestLinear(&data, outf);
+		fprintf(outf1, "\n\n[LINEAR TIME TEST]\n");
+		TestLinear(&data, outf1);
 		
-		
-		
+
 		/// Start other tests here ?
 
 
-		fclose(outf);
+		fclose(outf1);
+		//fclose(outf2);
 	}
 	else
 	{	
 		/// usage of arguments
-		printf("USAGE:\t[START LEN] [# OF TRIALS] [OUTPUT FILE NAME]\n");
+		printf("USAGE:\t[START LEN] [# OF TRIALS]\n");
 		return 0;
 	}
 

@@ -19,6 +19,7 @@ int mmult(double *c,
   return 0;
 }
 
+
 double* gen_matrix(int n, int m) {
   int i, j;
   double *a = malloc(sizeof(double) * n * m);
