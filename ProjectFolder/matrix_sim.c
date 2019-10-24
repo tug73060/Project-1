@@ -1,6 +1,8 @@
+#include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
 #include <sys/times.h>
+
 
 #include "mmult.c"
 
@@ -75,6 +77,40 @@ void TestLinear(TestData* data, FILE* f)
 	free(C);
 }
 
+
+///////////////////////////////////////////////////
+/// Generate array of doubles using a file
+/// file content example:
+///
+/// 2
+/// 2.32    2423.5
+/// 984.02  1.11
+double* gen_matrix_file(FILE* f, int* size)
+{
+	char buff[255];
+	if(fscanf(f, "%s", buff) == 1)
+	{
+		if((*size = atoi(buff)) != 0)
+		{
+			printf("%d\n", *size);
+		}
+		else{ exit(-1); }
+	}
+	else { exit(-1); }
+
+	double* matrix = (double*)malloc((*size) * (*size) * sizeof(double));
+
+	int dimension = (*size) * (*size);
+	int i = 0;
+	while(fscanf(f, "%s", buff) == 1 && (i < dimension))
+	{
+		matrix[i] = atof(buff);
+		printf("Loaded %f\n", matrix[i]);
+		i++;
+	}
+}
+
+
 int main(int argc, char** argv)
 {
 	/// checking for correct arguments
@@ -93,6 +129,7 @@ int main(int argc, char** argv)
 		TestLinear(&data, outf);
 		
 		
+		
 		/// Start other tests here ?
 
 
@@ -104,4 +141,5 @@ int main(int argc, char** argv)
 		printf("USAGE:\t[START LEN] [# OF TRIALS] [OUTPUT FILE NAME]\n");
 		return 0;
 	}
+
 }
