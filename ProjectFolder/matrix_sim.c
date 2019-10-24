@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <sys/times.h>
-
+#include <unistd.h>
 
 #include "mmult.c"
 
@@ -113,6 +113,10 @@ double* gen_matrix_file(FILE* f, int* size)
 
 int main(int argc, char** argv)
 {
+	char me[255];
+	gethostname(me, 254);
+	printf("\nHost: %s\n", me);
+
 	/// checking for correct arguments
 	if(argc > 3)
 	{
@@ -126,8 +130,9 @@ int main(int argc, char** argv)
 		
 		/// Start linear test
 		fprintf(outf, "\n\n[LINEAR TIME TEST]\n");
+
 		TestLinear(&data, outf);
-		
+		printf("\n");
 		
 		
 		/// Start other tests here ?
@@ -139,6 +144,7 @@ int main(int argc, char** argv)
 	{	
 		/// usage of arguments
 		printf("USAGE:\t[START LEN] [# OF TRIALS] [OUTPUT FILE NAME]\n");
+		printf("W/ CLUSTER: mpiexec -f ~/hosts -n x [program] [args]\n");
 		return 0;
 	}
 
