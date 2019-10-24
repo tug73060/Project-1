@@ -61,9 +61,12 @@ void TestLinear(TestData* data, FILE* f)
 		A = gen_matrix(templen, templen);
 		C = gen_matrix(templen, templen);
 
+		
 		clock_gettime(CLOCK_REALTIME, &(data->start));
 		mmult(C, M, templen, templen, A, templen, templen);
 		clock_gettime(CLOCK_REALTIME, &(data->end));
+		
+			
 		data->timeTaken = deltaTime(&data->start, &data->end);
 		
 		///updating the current matrix size before printing
@@ -76,7 +79,6 @@ void TestLinear(TestData* data, FILE* f)
 	}
 	free(C);
 }
-
 
 ///////////////////////////////////////////////////
 /// Generate array of doubles using a file
@@ -115,13 +117,18 @@ int main(int argc, char** argv)
 {
 	char me[255];
 	gethostname(me, 254);
+<<<<<<< HEAD
+	printf("Host: %s\n", me);
+=======
 	printf("\nHost: %s\n", me);
 
+>>>>>>> 02d1e0cb839615117909d3e0a33e465925a41d7a
 	/// checking for correct arguments
 	if(argc > 3)
 	{
 		/// setup output file and test data
-		FILE* outf = fopen(argv[3], "w+");
+		FILE* outf1 = fopen(argv[3], "w+");
+		//FILE* outf2 = fopen("test_simd.txt", "w+");
 		TestData data = {0};
 		data.startLen = atol(argv[1]);
 		data.numIte = atol(argv[2]);
@@ -129,22 +136,33 @@ int main(int argc, char** argv)
 		data.curLen = data.startLen;
 		
 		/// Start linear test
+<<<<<<< HEAD
+		fprintf(outf1, "\n\n[LINEAR TIME TEST]\n");
+		TestLinear(&data, outf1);
+=======
 		fprintf(outf, "\n\n[LINEAR TIME TEST]\n");
 
 		TestLinear(&data, outf);
 		printf("\n");
 		
+>>>>>>> 02d1e0cb839615117909d3e0a33e465925a41d7a
 		
+
 		/// Start other tests here ?
 
 
-		fclose(outf);
+		fclose(outf1);
+		//fclose(outf2);
 	}
 	else
 	{	
 		/// usage of arguments
+<<<<<<< HEAD
+		printf("USAGE:\t[START LEN]  [# OF TRIALS]  [OUTPUT FILE NAME]\n");
+=======
 		printf("USAGE:\t[START LEN] [# OF TRIALS] [OUTPUT FILE NAME]\n");
 		printf("W/ CLUSTER: mpiexec -f ~/hosts -n x [program] [args]\n");
+>>>>>>> 02d1e0cb839615117909d3e0a33e465925a41d7a
 		return 0;
 	}
 
