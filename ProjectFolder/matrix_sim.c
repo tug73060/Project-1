@@ -117,12 +117,10 @@ int main(int argc, char** argv)
 {
 	char me[255];
 	gethostname(me, 254);
-<<<<<<< HEAD
-	printf("Host: %s\n", me);
-=======
+
 	printf("\nHost: %s\n", me);
 
->>>>>>> 02d1e0cb839615117909d3e0a33e465925a41d7a
+
 	/// checking for correct arguments
 	if(argc > 3)
 	{
@@ -136,16 +134,17 @@ int main(int argc, char** argv)
 		data.curLen = data.startLen;
 		
 		/// Start linear test
-<<<<<<< HEAD
+
 		fprintf(outf1, "\n\n[LINEAR TIME TEST]\n");
 		TestLinear(&data, outf1);
-=======
+
+		/*
 		fprintf(outf, "\n\n[LINEAR TIME TEST]\n");
 
 		TestLinear(&data, outf);
 		printf("\n");
 		
->>>>>>> 02d1e0cb839615117909d3e0a33e465925a41d7a
+		*/
 		
 
 		/// Start other tests here ?
@@ -157,12 +156,10 @@ int main(int argc, char** argv)
 	else
 	{	
 		/// usage of arguments
-<<<<<<< HEAD
-		printf("USAGE:\t[START LEN]  [# OF TRIALS]  [OUTPUT FILE NAME]\n");
-=======
+
 		printf("USAGE:\t[START LEN] [# OF TRIALS] [OUTPUT FILE NAME]\n");
 		printf("W/ CLUSTER: mpiexec -f ~/hosts -n x [program] [args]\n");
->>>>>>> 02d1e0cb839615117909d3e0a33e465925a41d7a
+
 		return 0;
 	}
 
