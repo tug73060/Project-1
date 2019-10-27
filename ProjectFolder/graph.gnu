@@ -1,5 +1,5 @@
 set terminal png size 800,600
-set output 'out.png'
+set output 'output.png'
 
 set xlabel 'Matrix Size'
 set ylabel 'Time (sec)'
